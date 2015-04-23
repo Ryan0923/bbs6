@@ -1,0 +1,1 @@
+/opt/resin/bin/httpd.sh -conf /Users/Christen/Documents/app/java/bbs6/resin-bbs6.xml

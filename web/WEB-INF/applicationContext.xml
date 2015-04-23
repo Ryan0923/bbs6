@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:memcached.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="sockIOPool4Bbs6" class="com.danga.MemCached.SockIOPool"
+    	factory-method="getInstance" init-method="initialize" destroy-method="shutDown"
+		p:initConn="${memcached.initConn}"
+    	p:minConn="${memcached.minConn}"
+    	p:maxConn="${memcached.maxConn}"
+    	p:maintSleep="${memcached.maintSleep}"
+    	p:nagle="${memcached.nagle}"
+    	p:socketTO="${memcached.socketTO}"
+    	p:servers="${memcached.servers}">
+    	<constructor-arg value="bbs6"/>
+    </bean>
+	<bean id="memCachedClient4Bbs6" class="com.danga.MemCached.MemCachedClient">
+		<property name="sanitizeKeys" value="false"/>
+		<constructor-arg value="bbs6"/>
+	</bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<bean class="cn.pconline.bbs6.aop.AopSqlMonitor"/>
+
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/bbs6"/>
+    <jee:jndi-lookup id="dataSource4IdGen" jndi-name="jdbc/bbs6"/>
+
+	<bean id="idGenerator" class="cn.pconline.bbs6.repository.IdTableGenerator" p:idDataSource-ref="dataSource4IdGen"/>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" p:dataSource-ref="dataSource"/>
+
+	<bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg type="org.springframework.jdbc.core.JdbcOperations" ref="jdbcTemplate" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"/>
+
+	<!--<bean id="sqlPageBuilder" class="cn.pconline.bbs6.repository.OraclePageBuilder"/>-->
+	<bean id="sqlPageBuilder" class="cn.pconline.bbs6.repository.MySqlPageBuilder"/>
+
+	<bean id="cacheClient" class="cn.pconline.bbs6.cache.CacheClient"
+		p:memCachedClient-ref="memCachedClient4Bbs6"/>
+
+		<bean id="envService" class="cn.pconline.bbs6.service.EnvService"/>
+    <bean id="userRepository" class="cn.pconline.bbs6.repository.UserRepository"/>
+    <bean id="userService" class="cn.pconline.bbs6.service.UserService"/>
+
+	<bean id="forumRepository" class="cn.pconline.bbs6.repository.ForumRepository"/>
+	<bean id="forumService" class="cn.pconline.bbs6.service.ForumService"/>
+
+	<bean id="topicRepository" class="cn.pconline.bbs6.repository.TopicRepository"/>
+	<bean id="topicService" class="cn.pconline.bbs6.service.TopicService"/>
+
+	<bean id="postRepository" class="cn.pconline.bbs6.repository.PostRepository"/>
+	<bean id="topicPagerRepository" class="cn.pconline.bbs6.repository.TopicPagerRepository"/>
+	<bean id="postPagerRepository" class="cn.pconline.bbs6.repository.PostPagerRepository"/>
+
+	<bean id="UBB2" class="cn.pconline.bbs6.util.UBB2" p:emotRoot="http://www.pconline.com.cn"/>
+
+	<context:annotation-config />
+</beans>

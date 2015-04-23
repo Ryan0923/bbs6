@@ -1,0 +1,6 @@
+.idea/*
+web/WEB-INF/classes/*
+web/WEB-INF/wok/*
+
+Thumbs.db
+.DS_Store

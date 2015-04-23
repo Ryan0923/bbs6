@@ -1,0 +1,17 @@
+<link rel="shortcut icon" href="<c:url value='/images/favicon.ico' />"/>
+
+<%--src="<c:url value='/js/artdialog/artDialog.plugins.min.js' />"--%>
+
+<!-- Blueprint Framework CSS -->
+<%--<link rel="stylesheet" href="<c:url value='/css/blueprint/screen.css' />" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<c:url value='/css/blueprint/print.css' />" type="text/css" media="print">
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="<c:url value='/css/blueprint/ie.css' />" type="text/css" media="screen, projection">
+<![endif]-->
+<link rel="stylesheet" href="<c:url value='/css/blueprint/plugins/link-icons/screen.css' />" type="text/css">--%>
+
+
+<link rel="stylesheet" href="<c:url value='/css/main.css' />" type="text/css">
+
+<link href="<c:url value='/js/colorbox/colorbox.css' />" rel="stylesheet" />
+<link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet" />

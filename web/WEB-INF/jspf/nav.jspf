@@ -1,0 +1,51 @@
+<div class="colored-bars">从这里开始！</div>
+
+<div style="text-align: right">
+    <button type="button" id="register" class="btn btn-primary">注册</button>
+    <button type="button" id="login" class="btn btn-primary">登录</button>
+    <button type="button" id="user" class="btn btn-primary">在线</button>
+</div>
+
+<script type="text/javascript">
+
+    function register() {
+        $("#register").click(function () {
+            alert("register");
+        });
+
+        $("#register").mouseover(function () {
+            $(this).tooltip(
+                    {
+                        title:"注册新用户"
+                    }
+
+            );
+        })
+
+    }
+
+    function login() {
+        $("#login").click(function () {
+            alert("login");
+        });
+    }
+
+    function show_user() {
+        $("#user").colorbox({
+            href:"user.jsp",
+            iframe:true,
+            width:500,
+            height:750,
+            scrolling:false,
+            onClosed:function () {
+                //alert('onClosed: colorbox has completely closed');
+            }
+        });
+    }
+
+    $(function () {
+        register();
+        login();
+        show_user();
+    });
+</script>

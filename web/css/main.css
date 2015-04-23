@@ -1,0 +1,32 @@
+p, table, hr, .box {
+    margin-bottom: 25px;
+}
+
+.box p {
+    margin-bottom: 10px;
+}
+
+body{
+    font-size: 85% !important;
+}
+
+a.external {
+    background: url(../images/icon/external-link-ltr-icon.png) no-repeat right center;
+    padding: 0 13px 0 0;
+}
+
+a.recommend {
+    background: url(../images/icon/star-yellow.gif) no-repeat right center;
+    padding: 0 16px 0 0;
+}
+
+.colored-bars {
+    background: url(../images/colored-bars.png) no-repeat scroll left bottom transparent;
+    clear: both;
+    margin: 0 0 30px 0;
+    padding: 0 0 3px 0;
+    max-width: 950px;
+    min-height: 4px;
+}
+
+

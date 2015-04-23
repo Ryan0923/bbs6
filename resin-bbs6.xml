@@ -1,0 +1,77 @@
+<resin xmlns="http://caucho.com/ns/resin" xmlns:resin="http://caucho.com/ns/resin/core">
+
+    <log name="" level="info" path="stdout:"/>
+
+    <cluster id="">
+        <server id="">
+            <http port="3000"/>
+        </server>
+
+        <resin:import path="${resin.home}/conf/app-default.xml"/>
+
+        
+               <!--><resin:import path="${resin.home}/conf/r-route.conf.xml"/>-->
+
+        <web-app-default>
+            <servlet servlet-name="directory" servlet-class="com.caucho.servlets.DirectoryServlet">
+                <init enable="true"/>
+            </servlet>
+        </web-app-default>
+
+        <host id="" root-directory=".">
+        
+		
+					<!-- passport 
+			<database jndi-name="jdbc/common2DataSource">
+				<driver type="oracle.jdbc.driver.OracleDriver">
+					<url>jdbc:oracle:thin:@192.168.74.5:1521:test745</url>
+					<user>common_app</user>
+					<password>common_app</password>
+				</driver>
+			</database>  -->
+			
+		<!--
+		<database jndi-name="jdbc/game111011DataSource">
+				<driver type="com.mysql.jdbc.Driver">
+					<url>jdbc:mysql://localhost/play?characterEncoding=GBK</url>
+					<user>root</user>
+					<password>waaigh</password>
+				</driver>
+		</database>-->
+		
+		<database jndi-name="jdbc/bbs6">
+			<driver user="root" password="fj" url="jdbc:mysql://127.0.0.1/bbs6" type="com.mysql.jdbc.Driver"/>
+		</database>
+            
+            <web-app id="/docs" root-directory="${resin.root}/webapps/resin-doc"/>
+
+            <!-- pcauto.com.cn -->
+
+            <web-app id="/bbs" document-directory="/Users/Christen/Documents/app/java/bbs6/web" lazy-init="false" />
+
+            <web-app id="/resin" document-directory="/Users/Christen/Documents/app/java/resin/web" lazy-init="false" />
+
+
+            <!-- pcbaby.com.cn -->
+
+
+            <!-- pcgames.com.cn -->
+
+
+            <!-- pchouse.com.cn -->
+
+
+            <!-- pclady.com.cn -->
+
+
+            <!-- pconline.com.cn -->
+
+
+            <!-- legacy -->
+
+
+            <!-- temp -->
+        </host>
+    </cluster>
+
+</resin>

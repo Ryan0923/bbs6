@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+
+	<filter>
+		<filter-name>MonitorFilter</filter-name>
+		<filter-class>cn.pconline.util.monitor.MonitorFilter</filter-class>
+		<init-param>
+			<param-name>sample</param-name>
+			<param-value>/topic.jsp /forum.jsp</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping><filter-name>MonitorFilter</filter-name><url-pattern>*.jsp</url-pattern></filter-mapping>
+
+	<!--
+    <filter><filter-name>gzip</filter-name><filter-class>com.caucho.filters.GzipFilter</filter-class></filter>
+	<filter-mapping><filter-name>gzip</filter-name><url-pattern>/forum.jsp</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>gzip</filter-name><url-pattern>/topic.jsp</url-pattern></filter-mapping>
+	-->
+	<filter><filter-name>TrimHtmlFilter</filter-name><filter-class>cn.pconline.util.trim.TrimHtmlFilter</filter-class></filter>
+	<filter-mapping><filter-name>TrimHtmlFilter</filter-name><url-pattern>/forum.jsp</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>TrimHtmlFilter</filter-name><url-pattern>/topic.jsp</url-pattern></filter-mapping>
+
+	<filter><filter-name>EnvFilter</filter-name><filter-class>cn.pconline.bbs6.util.EnvFilter</filter-class></filter>
+	<filter-mapping><filter-name>EnvFilter</filter-name><url-pattern>*.jsp</url-pattern></filter-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+<!--
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/jsp/uncaughtException.jsp</location>
+	</error-page>>
+-->
+</web-app>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BBS6" default="compile">
+
+	<property name="home" location="." />
+	
+	<!--时间戳-->
+	<tstamp prefix="pc">
+        <format property="day" pattern="yyyy-MM-dd"/>
+        <format property="time" pattern="HH:mm:ss"/>
+        <format property="datetime" pattern="yyyyMMdd-HHmmss"/>
+    </tstamp>
+    
+	<!--复制-->
+    <path id="cp">
+        <pathelement path="${home}/src" />
+        <fileset dir="${home}/web/WEB-INF/lib" includes="*.jar" />
+        <fileset dir="E:/webdev/spring/spring-framework-2.5/lib/j2ee" includes="jstl.jar servlet-api.jar jsp-api.jar" />
+        <fileset dir="E:/webdev/spring/spring-framework-2.5/lib/jakarta-taglibs" includes="standard.jar" />
+    </path>
+    
+	<!--编译-->
+    <target name="compile" description="compile">
+        <javac srcdir="${home}/src" destdir="${home}/web/WEB-INF/classes" classpathref="cp" debug="true" >
+        	<!--给编译器指定编码，防止出现："警告： 编码 GBK 的不可映射字符"-->
+        	<compilerarg line="-encoding UTF-8 "/>
+        </javac>
+        <copy todir="${home}/web/WEB-INF/classes/" overwrite="true">
+            <fileset dir="${home}/src" excludes="**/*.java **/*.txt"/>
+        </copy>
+    </target>
+    
+	<!--native-->
+    <target name="native2ascii">
+        <native2ascii encoding="GBK" src="${home}/trunk/src" dest="${home}/trunk/src"
+                includes="*_zh_CN.txt" ext=".properties"/>
+    </target>
+    
+	<!--清理-->
+    <target name="clear">
+        <delete includeemptydirs="true">
+            <fileset dir="${home}/web/WEB-INF/classes" includes="**/*"/>
+        </delete>
+        <delete dir="${home}/web/WEB-INF/tmp"/>
+        <delete dir="${home}/web/WEB-INF/work"/>
+    </target>
+    
+    <!--发布-->
+    <target name="dist" description="dist the project" depends="clear,compile,war"/>
+
+	<!--打包-->
+    <target name="war">
+    	<delete file="${home}/publish/${ant.project.name}-${pc.datetime}.zip"/>
+        <zip destfile="${home}/publish/${ant.project.name}-${pc.datetime}.zip" basedir="${home}/web/" update="false"
+            excludes="!**/*.java **/.* **/*.#* **/*.war WEB-INF/work*/ WEB-INF/tmp/ WEB-INF/*.sql **/新建文件夹/ **/复件*/ **/复件*.*" />
+    </target>
+
+</project>
