@@ -47,10 +47,7 @@
 
             <!-- pcauto.com.cn -->
 
-            <web-app id="/bbs" document-directory="/Users/Christen/Documents/app/java/bbs6/web" lazy-init="false" />
-
-            <web-app id="/resin" document-directory="/Users/Christen/Documents/app/java/resin/web" lazy-init="false" />
-
+            <web-app id="/bbs" document-directory="/Users/Christen/Documents/app/git/bbs6/web" lazy-init="false" />
 
             <!-- pcbaby.com.cn -->
 
